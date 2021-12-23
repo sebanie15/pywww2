@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Post detail</h1>
-</body>
-</html>
+{% extends "base.html" %} {% load i18n %}
+{% block content %}
+
+<div class=" container card mt-3 mb-4 flex-row">
+    <div class="card-body col-md-6">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+        <p class="card-text">{{post.content|slice:":200" }}</p>
+        <a href="{% url 'post_list'  %}" class="btn btn-primary">&larr; {% translate "Back to posts" %} </a>
+    </div>
+    <div class="card-body col-md-6">
+        <p class="card-text text-muted h6">{{ post.content }} </p>
+    </div>
+</div>
+
+{%endblock%}

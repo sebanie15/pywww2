@@ -15,13 +15,16 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-TEMPLATES_DIRS = os.path.join(Path(__file__).resolve().parent, 'templates')
+# TEMPLATES_DIRS = os.path.join(Path(__file__).resolve().parent, 'templates')
+TEMPLATES_DIRS = BASE_DIR / 'pywww2/templates'
+MEDIA_DIRS = os.path.join(Path(__file__).resolve().parent, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-from .secret_key import SECRET_KEY
+# from .secret_key import SECRET_KEY
+SECRET_KEY = os.environ.get('SECRET_KEY', default='KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -59,7 +62,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(Path(__file__).resolve().parent, 'templates')
+            TEMPLATES_DIRS,
+            MEDIA_DIRS,
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -125,7 +129,18 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# LOGIN_REDIRECT_URL = '/registration/'
+# LOGOUT_REDIRECT_URL = '/accounts/login/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+from django.utils.translation import gettext_lazy as _
+
+
+LANGUAGES = [
+    ('en', _('English')),
+]
